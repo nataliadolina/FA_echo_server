@@ -1,27 +1,31 @@
 import socket
-import server_callbacks
-from common_func import set_connection_settings, default_server_settings, write_to_file
+from server_callbacks import log
+from common_func import set_connection_settings, default_server_settings
 
 sock = socket.socket()
 set_connection_settings(default_server_settings, sock.bind)
-server_callbacks.on_server_loaded()
+loaded = True
+log("loaded")
 
 sock.listen(1)
-server_callbacks.on_server_start_listening()
+log("listen")
 
 
 def try_to_stop_server(string, conn):
+    global loaded
     if string == "stop":
         conn.close()
+        log("stop")
+        loaded = False
 
 
-while True:
+while loaded:
     conn, addr = sock.accept()
-    server_callbacks.on_client_connected(addr)
+    log("connected")
     data = conn.recv(1024)
-    server_callbacks.on_get_data_from_client()
+    log("data_get")
     if data:
         conn.send(data.upper())
-        server_callbacks.on_server_data_send()
+        log("data_send")
 
     try_to_stop_server(input("Type stop to close connection"), conn)

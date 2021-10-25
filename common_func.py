@@ -9,7 +9,7 @@ def request_connection_settings():
 
 
 def write_to_file(filename, data):
-    with open(f"txt/{filename}", 'wt', encoding="UTF-8") as file:
+    with open(f"txt/{filename}", 'a+', encoding="UTF-8") as file:
         file.write(data)
 
 
