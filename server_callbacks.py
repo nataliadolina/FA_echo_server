@@ -7,5 +7,5 @@ msg_dict = {"loaded": "Сервер запущен.", "listen": "Происхо�
 
 
 def log(msg_key):
-    write_to_file(log_filename, msg_dict[msg_key])
-    write_to_file(log_filename, "\n")
+    write_to_file(log_filename, msg_dict[msg_key], "a+")
+    write_to_file(log_filename, "\n", "a+")
