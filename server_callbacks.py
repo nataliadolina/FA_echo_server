@@ -1,4 +1,4 @@
-from common_func import write_to_file
+from file_manager import write_to_file
 
 log_filename = "log.txt"
 msg_dict = {"loaded": "Сервер запущен.", "listen": "Происходит прослушивание порта.", "connected": "Клиент подключён.",
