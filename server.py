@@ -6,17 +6,7 @@ from file_manager import reset_all
 from threading import Thread
 
 
-def try_to_stop_server(string, conn):
-    global loaded
-    if string == "stop":
-        conn.close()
-        log("stop")
-        loaded = False
-        delete_port(port)
-    return
-
-
-def accept_incoming_connections():
+def accept_incoming_data():
     while 1:
         conn, addr = _sock.accept()
         log("connected")
@@ -36,6 +26,6 @@ if __name__ == "__main__":
 
     _sock.listen(5)
     log("listen")
-    ACCEPT_ClIENTS_THREAD = Thread(target=accept_incoming_connections)
-    ACCEPT_ClIENTS_THREAD.start()
-    ACCEPT_ClIENTS_THREAD.join()
+    MAIN_THREAD = Thread(target=accept_incoming_data)
+    MAIN_THREAD.start()
+    MAIN_THREAD.join()

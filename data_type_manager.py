@@ -1,3 +1,4 @@
+import hashlib
 def to_type(type, el):
     if type == "str":
         return str(el)
@@ -12,3 +13,7 @@ def encode(string):
 
 def decode(bytes):
     return bytes.decode()
+
+
+def to_hash(string):
+    return hashlib.sha224(string.encode('utf-8')).hexdigest()
