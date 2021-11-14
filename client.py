@@ -21,7 +21,7 @@ def read_sock():
     while 1:
         client_callbacks.on_data_get()
         data = sock.recv(1024)
-        print(f"От сервера пришло сообщение {decode(data)}")
+        print(decode(data))
 
 
 def send_data():
