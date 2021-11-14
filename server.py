@@ -16,27 +16,14 @@ def try_to_stop_server(string, conn):
     return
 
 
-client = []  # Массив где храним адреса клиентов
-_conn = None
-
-
 def accept_incoming_connections():
     while 1:
         conn, addr = _sock.accept()
-        _conn = conn
         log("connected")
         log("data_get")
-        if addr not in client:
-            client.append(addr)
-
-
-def receive_clients_data():
-    while 1:
-        if _conn:
-            data = _conn.recv(1024)
-            for clients in client:
-                _sock.sendto(data, clients)
-                log("data_send")
+        data = conn.recv(1024)
+        conn.sendto(data, addr)
+        log("data_send")
 
 
 if __name__ == "__main__":
@@ -50,8 +37,5 @@ if __name__ == "__main__":
     _sock.listen(5)
     log("listen")
     ACCEPT_ClIENTS_THREAD = Thread(target=accept_incoming_connections)
-    MAIN_THREAD = Thread(target=receive_clients_data, args=[])
-    MAIN_THREAD.start()
     ACCEPT_ClIENTS_THREAD.start()
-    MAIN_THREAD.join()
-    MAIN_THREAD.join()
+    ACCEPT_ClIENTS_THREAD.join()

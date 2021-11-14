@@ -3,7 +3,7 @@ import client_callbacks
 from data_type_manager import encode, decode
 from connection_settings import set_connection_settings
 from threading import Thread
-from auth_register import auth, register
+from auth_register import auth
 
 
 def try_to_close_client():
@@ -21,12 +21,12 @@ def read_sock():
     while 1:
         client_callbacks.on_data_get()
         data = sock.recv(1024)
-        print(decode(data))
+        print(f"От сервера пришло сообщение {decode(data)}")
 
 
 def send_data():
     while 1:
-        sock.send(encode(input("Что отошлём клиенту?")))
+        sock.send(encode(input("Что отошлём серверу?")))
         client_callbacks.on_data_sent()
 
 
