@@ -11,7 +11,7 @@ def request_account_settings():
 def register(addr):
     data = request_account_settings()
     write_host_password([addr, data[0], data[1]])
-    print("Пользователь успешно зарегестрирован.")
+    print("Пользователь успешно зарегистрирован.")
 
 
 def auth(addr):

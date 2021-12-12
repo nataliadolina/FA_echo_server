@@ -1,7 +1,7 @@
 import socket
 import client_callbacks
 from data_type_manager import encode, decode
-from connection_settings import set_connection_settings
+from connection_settings import set_connection_settings_and_bind
 from threading import Thread
 from auth_register import auth
 
@@ -32,7 +32,7 @@ def send_data():
 
 if __name__ == "__main__":
     sock = socket.socket()
-    host = set_connection_settings(sock, from_server=False)[0]
+    host = set_connection_settings_and_bind(sock, from_server=False)[0]
     client_callbacks.on_connected_to_server()
     auth(host)
     READ_SOCK = Thread(target=read_sock)

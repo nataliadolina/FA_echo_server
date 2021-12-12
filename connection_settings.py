@@ -38,7 +38,7 @@ def check_settings(_settings, from_server):
     return host, int(port)
 
 
-def set_connection_settings(socket, from_server=False):
+def set_connection_settings_and_bind(socket, from_server=False):
     def get_bind_func():
         binders = {True: socket.bind, False: socket.connect}
         return binders[from_server]
@@ -46,6 +46,15 @@ def set_connection_settings(socket, from_server=False):
     settings = request_connection_settings()
     settings = check_settings(settings, from_server)
     get_bind_func()(settings)
+    host, port = settings
+    if from_server:
+        save_port(port)
+    return host, port
+
+
+def set_connection_settings(from_server=False):
+    settings = request_connection_settings()
+    settings = check_settings(settings, from_server)
     host, port = settings
     if from_server:
         save_port(port)
